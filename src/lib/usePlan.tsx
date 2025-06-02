@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useAuth } from './useAuth';
 import { db } from './firebase';
-import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 type Plan = 'free' | 'starter' | 'pro' | null;
@@ -21,7 +21,6 @@ export function PlanProvider({ children }: { children: ReactNode }) {
   const [plan, setPlan] = useState<Plan>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (!user) {

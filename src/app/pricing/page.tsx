@@ -141,7 +141,7 @@ const PricingPage = () => {
       await upgradePlan(planName.toLowerCase() as 'starter' | 'pro' | 'free');
       toast.success(`Successfully upgraded to ${planName} plan!`);
       router.push('/generate');
-    } catch (error) {
+    } catch {
       toast.error('Failed to upgrade plan. Please try again.');
     }
   };

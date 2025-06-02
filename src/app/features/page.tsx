@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { CheckCircleIcon, SparklesIcon, BoltIcon, UserGroupIcon, Cog6ToothIcon } from '@heroicons/react/24/solid';
+import { SparklesIcon, BoltIcon, UserGroupIcon, Cog6ToothIcon } from '@heroicons/react/24/solid';
 
 const featureList = [
   // Personalization
@@ -84,7 +84,6 @@ const featureList = [
 
 export default function FeaturesPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
   const [windowW, setWindowW] = useState(0);
 
   // Calculate the width of the horizontal scroll area
@@ -95,7 +94,6 @@ export default function FeaturesPage() {
 
   useLayoutEffect(() => {
     setWindowW(window.innerWidth);
-    setContainerWidth(totalWidth);
   }, [totalWidth]);
 
   // Framer Motion scroll hook
@@ -104,8 +102,6 @@ export default function FeaturesPage() {
     offset: ["start start", "end end"]
   });
 
-  // Slow down the scroll: increase the vertical scroll distance
-  const verticalScrollLength = totalWidth + windowW * 1.5; // More vertical space for slower scroll
   const x = useTransform(
     scrollYProgress,
     [0, 1],

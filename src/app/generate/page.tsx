@@ -11,7 +11,6 @@ const GeneratePage = () => {
   const { user, loading: authLoading } = useRequireAuth();
   const { plan, loading: planLoading } = usePlan();
   const [showProFeatures, setShowProFeatures] = useState(false);
-  const [generating, setGenerating] = useState(false);
 
   if (authLoading || planLoading || !user) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -45,9 +44,9 @@ const GeneratePage = () => {
                 name="product"
                 rows={3}
                 className="block w-full rounded-lg border border-gray-200 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition"
-                placeholder="Describe your product or service..."
+                placeholder={'Describe your product or service...'}
               />
-              <p className="text-xs text-gray-400 mt-1">E.g., "AI tool for automating cold outreach"</p>
+              <p className="text-xs text-gray-400 mt-1">E.g., &quot;AI tool for automating cold outreach&quot;</p>
             </div>
             <div>
               <label htmlFor="recipient" className="block text-sm font-medium text-gray-900 mb-1">
@@ -58,9 +57,9 @@ const GeneratePage = () => {
                 name="recipient"
                 rows={3}
                 className="block w-full rounded-lg border border-gray-200 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition"
-                placeholder="Describe your target recipient..."
+                placeholder={'Describe your target recipient...'}
               />
-              <p className="text-xs text-gray-400 mt-1">E.g., "Sales manager at a SaaS company"</p>
+              <p className="text-xs text-gray-400 mt-1">E.g., &quot;Sales manager at a SaaS company&quot;</p>
             </div>
           </div>
 
@@ -148,13 +147,8 @@ const GeneratePage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
               className="w-full sm:w-auto rounded-lg bg-indigo-600 px-8 py-3 text-base font-bold text-white shadow-lg hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition disabled:opacity-60"
-              disabled={generating}
             >
-              {generating ? (
-                <span className="flex items-center gap-2"><svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg>Generating...</span>
-              ) : (
-                'Generate Emails'
-              )}
+              Generate Emails
             </motion.button>
           </div>
         </form>
