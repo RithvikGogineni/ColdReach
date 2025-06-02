@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { db } from '../../lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth } from '../../lib/firebase';
+import { FirebaseError } from 'firebase/app';
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -62,11 +63,13 @@ const SignupPage = () => {
       }
       toast.success('Account created! Please choose a plan to continue.');
       router.push('/pricing');
-    } catch (err: any) {
-      let msg = err.message;
-      if (err.code === 'auth/email-already-in-use') msg = 'Email is already in use.';
-      else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
-      else if (err.code === 'auth/weak-password') msg = 'Password is too weak.';
+    } catch (err: unknown) {
+      let msg = (err as Error).message;
+      if (err instanceof FirebaseError) {
+        if (err.code === 'auth/email-already-in-use') msg = 'Email already in use.';
+        else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
+        else if (err.code === 'auth/weak-password') msg = 'Password is too weak.';
+      }
       setError(msg);
       toast.error(msg);
     } finally {
@@ -88,9 +91,13 @@ const SignupPage = () => {
           router.push('/pricing');
         }
       });
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      let msg = (err as Error).message;
+      if (err instanceof FirebaseError) {
+        msg = err.code === 'auth/email-already-in-use' ? 'Email already in use.' : err.code === 'auth/invalid-email' ? 'Invalid email address.' : err.code === 'auth/weak-password' ? 'Password is too weak.' : msg;
+      }
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

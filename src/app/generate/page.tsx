@@ -99,7 +99,7 @@ const GeneratePage = () => {
                         className="block w-full rounded-md border border-gray-200 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:text-gray-500 sm:text-sm transition"
                         placeholder="https://linkedin.com/in/..."
                       />
-                      <p className="text-xs text-gray-400 mt-1">Pro: Personalize with recipient's LinkedIn data</p>
+                      <p className="text-xs text-gray-400 mt-1">Pro: Personalize with recipient&apos;s LinkedIn data</p>
                     </div>
                     <div>
                       <label htmlFor="company" className="block text-sm font-medium text-gray-900 mb-1">

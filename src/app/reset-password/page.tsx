@@ -32,12 +32,9 @@ export default function ResetPasswordPage() {
       await sendPasswordResetEmail(auth, email);
       toast.success('Password reset email sent!');
       setTimeout(() => router.push('/login'), 2000);
-    } catch (err: any) {
-      let msg = err.message;
-      if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
-      else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
-      setError(msg);
-      toast.error(msg);
+    } catch (err: unknown) {
+      setError((err as Error).message);
+      toast.error((err as Error).message);
     } finally {
       setLoading(false);
     }

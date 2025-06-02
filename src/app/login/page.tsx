@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import toast, { Toaster } from 'react-hot-toast';
+import { FirebaseError } from 'firebase/app';
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -44,12 +45,14 @@ const LoginPage = () => {
       await login(email, password);
       toast.success('Logged in! Redirecting...');
       router.push('/dashboard');
-    } catch (err: any) {
-      let msg = err.message;
-      if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
-      else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
-      else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
-      else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Try again later.';
+    } catch (err: unknown) {
+      let msg = (err as Error).message;
+      if (err instanceof FirebaseError) {
+        if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
+        else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
+        else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
+        else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Try again later.';
+      }
       setError(msg);
       toast.error(msg);
     } finally {
@@ -64,9 +67,9 @@ const LoginPage = () => {
       await loginWithGoogle();
       toast.success('Logged in! Redirecting...');
       router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      setError((err as Error).message);
+      toast.error((err as Error).message);
     } finally {
       setLoading(false);
     }

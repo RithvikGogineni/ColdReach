@@ -13,7 +13,7 @@ export default function NotFound() {
           <div className="text-center">
             <div className="text-lg font-semibold text-gray-700 mb-2">404</div>
             <h1 className="text-5xl font-bold text-gray-900 mb-4">Page not found</h1>
-            <p className="text-lg text-gray-700 mb-8">Sorry, we couldn't find the page you're looking for.</p>
+            <p className="text-lg text-gray-700 mb-8">Sorry, we couldn&apos;t find the page you&apos;re looking for.</p>
             <Link
               href="/"
               className="inline-block text-base font-semibold text-indigo-700 hover:text-indigo-900 transition-colors"

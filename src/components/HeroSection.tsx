@@ -1,22 +1,10 @@
 'use client';
 
 import React from "react";
-import { useState } from 'react';
-import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'Testimonials', href: '#' },
-];
-
 const HeroSection = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
       {/* Hero Section */}

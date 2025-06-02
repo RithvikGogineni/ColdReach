@@ -9,7 +9,7 @@ const openai = new OpenAI({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { product, recipient, url, tone, followUp, advancedPersonalization, plan } = body;
+    const { product, recipient, url, tone, followUp, plan } = body;
 
     let scrapedData = '';
 
